@@ -9,7 +9,7 @@ import torch as th
 import torch.nn.functional as F
 import yaml
 
-from src.image_transformer import ImageTransformer
+from image_transformer import ImageTransformer
 import argparse
 
 def dict2namespace(config):

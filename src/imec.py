@@ -319,6 +319,9 @@ def remove_random_mask(message_bits, input_key, sample_seed_prefix, input_nonce)
 
 
 if __name__ == "__main__":
+    from medium import METEORMedium, CIFARMedium, RandomMedium, VariRandomMedium, WaveRNNMedium
+    from utils import bcolors, str2bit, bit2str, get_model
+
     block_size = 4  # in bits
     medium = METEORMedium(
         seed=12342,
@@ -332,12 +335,12 @@ if __name__ == "__main__":
     # plaintext_message = "sample text"
     # use_arithmetic_coding = True
 
-    bit_msg, cinfo = str2bit(plaintext_message, use_arithmetic_coding=False, medium=medium)
+    bit_msg = str2bit(plaintext_message, use_arithmetic_coding=False, medium=medium)
 
     mask_cfg = {"input_key": b'0x01' * 64,
                 "sample_seed_prefix": b'sample',
                 "input_nonce": b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'}
-    msg_bits, rinfo = apply_random_mask(bit_msg, **mask_cfg)
+    msg_bits = apply_random_mask(bit_msg, **mask_cfg)
 
     import math
 
@@ -348,7 +351,7 @@ if __name__ == "__main__":
                      "resistant systems, practical steganographic systems capable of embedding messages " \
                      "into realistic communication distributions, like text, do not exist."
     chosen_context += "\n\n"  # to add a little spacing
-    encoded_message, enc_stats = encoder.encode(msg_bits=msg_bits, context=chosen_context, verbose=True)
+    encoded_message, enc_stats = encoder.encode(private_message_bit=msg_bits, context=chosen_context, verbose=True)
 
     print("ENCODED MESSAGE:")
     print(encoded_message)
@@ -358,8 +361,8 @@ if __name__ == "__main__":
 
     decoded_message, dec_stats = decoder.decode(encoded_msg=encoded_message, context=chosen_context)
 
-    bit_msg, rinfo = remove_random_mask(decoded_message, **rinfo)
-    decoded_message = bit2str(bit_msg, **cinfo)
+    bit_msg, rinfo = remove_random_mask(decoded_message, **mask_cfg)
+    decoded_message = bit2str(bit_msg, use_arithmetic_coding=False, medium=medium)
 
     print("PLAINTEXT MESSAGE:")
     print(plaintext_message)

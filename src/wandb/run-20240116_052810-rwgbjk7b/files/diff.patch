@@ -1,0 +1,48 @@
+diff --git a/src/arithmetic.py b/src/arithmetic.py
+index 1e23e6c..ab3fd5c 100644
+--- a/src/arithmetic.py
++++ b/src/arithmetic.py
+@@ -3,8 +3,8 @@ from collections import defaultdict
+ import numpy as np
+ import time
+ import torch as th
+-from src.utils import is_sent_finish, num_same_from_beg, int2bits, bits2int, DRBG, bin_sort, kl2
+-from src.utils import entropy2 as entropy
++from utils import is_sent_finish, num_same_from_beg, int2bits, bits2int, DRBG, bin_sort, kl2
++from utils import entropy2 as entropy
+ 
+ 
+ class ArithmeticEncoder:
+diff --git a/src/main.py b/src/main.py
+index bb4a997..ec39ae4 100644
+--- a/src/main.py
++++ b/src/main.py
+@@ -24,7 +24,7 @@ from meteor import METEOREncoder, METEORDecoder
+ from arithmetic import ArithmeticEncoder, ArithmeticDecoder
+ from utils import bcolors, str2bit, bit2str, get_model
+ 
+-
++sys.path.append('/projects/perfectly-secure-steganography/src')
+ def parse_args():
+     parser = argparse.ArgumentParser(description="IMEC Experiment flags")
+     parser.add_argument("--cfg-file", help="path to train experiment config yaml file",
+diff --git a/src/utils.py b/src/utils.py
+index 04ce889..803b350 100644
+--- a/src/utils.py
++++ b/src/utils.py
+@@ -9,7 +9,7 @@ import torch as th
+ import torch.nn.functional as F
+ import yaml
+ 
+-from src.image_transformer import ImageTransformer
++from image_transformer import ImageTransformer
+ import argparse
+ 
+ def dict2namespace(config):
+@@ -607,4 +607,4 @@ def get_it_model(seed=1234, model_name='cifar', device='cuda'):
+     config = dict2namespace(config)
+     model = ImageTransformer(config.model).to(device)
+     model.load_state_dict(checkpoint)
+-    return None, ITModule(model=model, device=device)
+\ No newline at end of file
++    return None, ITModule(model=model, device=device)

@@ -1,0 +1,120 @@
+diff --git a/.gitignore b/.gitignore
+old mode 100644
+new mode 100755
+diff --git a/README.md b/README.md
+old mode 100644
+new mode 100755
+diff --git a/data/__init__.py b/data/__init__.py
+old mode 100644
+new mode 100755
+diff --git a/data/datasets/image_transformer/__init__.py b/data/datasets/image_transformer/__init__.py
+old mode 100644
+new mode 100755
+diff --git a/data/datasets/image_transformer/transformer_cat.yml b/data/datasets/image_transformer/transformer_cat.yml
+old mode 100644
+new mode 100755
+diff --git a/requirements.txt b/requirements.txt
+old mode 100644
+new mode 100755
+diff --git a/src/__init__.py b/src/__init__.py
+old mode 100644
+new mode 100755
+diff --git a/src/adg.py b/src/adg.py
+old mode 100644
+new mode 100755
+diff --git a/src/arithmetic.py b/src/arithmetic.py
+old mode 100644
+new mode 100755
+index 1e23e6c..ab3fd5c
+--- a/src/arithmetic.py
++++ b/src/arithmetic.py
+@@ -3,8 +3,8 @@ from collections import defaultdict
+ import numpy as np
+ import time
+ import torch as th
+-from src.utils import is_sent_finish, num_same_from_beg, int2bits, bits2int, DRBG, bin_sort, kl2
+-from src.utils import entropy2 as entropy
++from utils import is_sent_finish, num_same_from_beg, int2bits, bits2int, DRBG, bin_sort, kl2
++from utils import entropy2 as entropy
+ 
+ 
+ class ArithmeticEncoder:
+diff --git a/src/image_transformer.py b/src/image_transformer.py
+old mode 100644
+new mode 100755
+diff --git a/src/imec.py b/src/imec.py
+old mode 100644
+new mode 100755
+index 6ae5faa..0b01e45
+--- a/src/imec.py
++++ b/src/imec.py
+@@ -319,6 +319,9 @@ def remove_random_mask(message_bits, input_key, sample_seed_prefix, input_nonce)
+ 
+ 
+ if __name__ == "__main__":
++    from medium import METEORMedium, CIFARMedium, RandomMedium, VariRandomMedium, WaveRNNMedium
++    from utils import bcolors, str2bit, bit2str, get_model
++
+     block_size = 4  # in bits
+     medium = METEORMedium(
+         seed=12342,
+diff --git a/src/main.py b/src/main.py
+old mode 100644
+new mode 100755
+index bb4a997..ec39ae4
+--- a/src/main.py
++++ b/src/main.py
+@@ -24,7 +24,7 @@ from meteor import METEOREncoder, METEORDecoder
+ from arithmetic import ArithmeticEncoder, ArithmeticDecoder
+ from utils import bcolors, str2bit, bit2str, get_model
+ 
+-
++sys.path.append('/projects/perfectly-secure-steganography/src')
+ def parse_args():
+     parser = argparse.ArgumentParser(description="IMEC Experiment flags")
+     parser.add_argument("--cfg-file", help="path to train experiment config yaml file",
+diff --git a/src/mec.cpp b/src/mec.cpp
+old mode 100644
+new mode 100755
+diff --git a/src/mec.py b/src/mec.py
+old mode 100644
+new mode 100755
+diff --git a/src/medium.py b/src/medium.py
+old mode 100644
+new mode 100755
+diff --git a/src/meteor.py b/src/meteor.py
+old mode 100644
+new mode 100755
+diff --git a/src/utils.py b/src/utils.py
+old mode 100644
+new mode 100755
+index 04ce889..6f2fcab
+--- a/src/utils.py
++++ b/src/utils.py
+@@ -9,7 +9,7 @@ import torch as th
+ import torch.nn.functional as F
+ import yaml
+ 
+-from src.image_transformer import ImageTransformer
++from image_transformer import ImageTransformer
+ import argparse
+ 
+ def dict2namespace(config):
+@@ -87,6 +87,7 @@ class MeteorTokenizer(GPT2Tokenizer):
+ 
+     def decode(self, token_ids, **kwargs):
+         filtered_tokens = self.convert_ids_to_tokens(token_ids)
++        breakpoint()
+         text = self.convert_tokens_to_string(filtered_tokens)
+         return text
+ 
+@@ -607,4 +608,4 @@ def get_it_model(seed=1234, model_name='cifar', device='cuda'):
+     config = dict2namespace(config)
+     model = ImageTransformer(config.model).to(device)
+     model.load_state_dict(checkpoint)
+-    return None, ITModule(model=model, device=device)
+\ No newline at end of file
++    return None, ITModule(model=model, device=device)
+diff --git a/src/wikitext.py b/src/wikitext.py
+old mode 100644
+new mode 100755

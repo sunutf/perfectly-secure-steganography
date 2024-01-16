@@ -1,0 +1,247 @@
+{
+    "os": "Linux-6.2.0-39-generic-x86_64-with-glibc2.31",
+    "python": "3.10.13",
+    "heartbeatAt": "2024-01-16T05:21:00.019135",
+    "startedAt": "2024-01-16T05:20:59.399063",
+    "docker": null,
+    "cuda": null,
+    "args": [
+        "--group-name",
+        "multi-stega",
+        "--meteor-is-sort",
+        "1",
+        "--meteor-precision",
+        "32",
+        "--method",
+        "meteor",
+        "--medium",
+        "meteor",
+        "--medium-entropy-loss-threshold",
+        "0.9",
+        "--medium-top-k",
+        "0",
+        "--message-mode",
+        "randombits",
+        "--model-device",
+        "cuda:0",
+        "--name",
+        "meteor",
+        "--stop-after-n-trajectories",
+        "100",
+        "--wandb-project",
+        "stegato",
+        "--wandb-entity",
+        "sunutf"
+    ],
+    "state": "running",
+    "program": "/projects/perfectly-secure-steganography/src/main.py",
+    "codePathLocal": "main.py",
+    "codePath": "src/main.py",
+    "git": {
+        "remote": "https://github.com/schroederdewitt/perfectly-secure-steganography.git",
+        "commit": "cc36ae0b585fae4c7fcf65f7ee4db43aac2edd28"
+    },
+    "email": null,
+    "root": "/projects/perfectly-secure-steganography",
+    "host": "aec7dd885b39",
+    "username": "root",
+    "executable": "/opt/conda/bin/python3",
+    "cpu_count": 16,
+    "cpu_count_logical": 32,
+    "cpu_freq": {
+        "current": 2.653468749999999,
+        "min": 1800.0,
+        "max": 4000.0
+    },
+    "cpu_freq_per_core": [
+        {
+            "current": 2.758,
+            "min": 1800.0,
+            "max": 4000.0
+        },
+        {
+            "current": 1.864,
+            "min": 1800.0,
+            "max": 4000.0
+        },
+        {
+            "current": 2.162,
+            "min": 1800.0,
+            "max": 4000.0
+        },
+        {
+            "current": 2.036,
+            "min": 1800.0,
+            "max": 4000.0
+        },
+        {
+            "current": 1.915,
+            "min": 1800.0,
+            "max": 4000.0
+        },
+        {
+            "current": 2.105,
+            "min": 1800.0,
+            "max": 4000.0
+        },
+        {
+            "current": 1.966,
+            "min": 1800.0,
+            "max": 4000.0
+        },
+        {
+            "current": 1.94,
+            "min": 1800.0,
+            "max": 4000.0
+        },
+        {
+            "current": 3.352,
+            "min": 1800.0,
+            "max": 4000.0
+        },
+        {
+            "current": 3.447,
+            "min": 1800.0,
+            "max": 4000.0
+        },
+        {
+            "current": 4.076,
+            "min": 1800.0,
+            "max": 4000.0
+        },
+        {
+            "current": 3.238,
+            "min": 1800.0,
+            "max": 4000.0
+        },
+        {
+            "current": 3.692,
+            "min": 1800.0,
+            "max": 4000.0
+        },
+        {
+            "current": 2.616,
+            "min": 1800.0,
+            "max": 4000.0
+        },
+        {
+            "current": 3.426,
+            "min": 1800.0,
+            "max": 4000.0
+        },
+        {
+            "current": 3.453,
+            "min": 1800.0,
+            "max": 4000.0
+        },
+        {
+            "current": 2.165,
+            "min": 1800.0,
+            "max": 4000.0
+        },
+        {
+            "current": 1.905,
+            "min": 1800.0,
+            "max": 4000.0
+        },
+        {
+            "current": 1.823,
+            "min": 1800.0,
+            "max": 4000.0
+        },
+        {
+            "current": 1.985,
+            "min": 1800.0,
+            "max": 4000.0
+        },
+        {
+            "current": 2.768,
+            "min": 1800.0,
+            "max": 4000.0
+        },
+        {
+            "current": 2.594,
+            "min": 1800.0,
+            "max": 4000.0
+        },
+        {
+            "current": 1.965,
+            "min": 1800.0,
+            "max": 4000.0
+        },
+        {
+            "current": 1.881,
+            "min": 1800.0,
+            "max": 4000.0
+        },
+        {
+            "current": 3.494,
+            "min": 1800.0,
+            "max": 4000.0
+        },
+        {
+            "current": 3.548,
+            "min": 1800.0,
+            "max": 4000.0
+        },
+        {
+            "current": 3.559,
+            "min": 1800.0,
+            "max": 4000.0
+        },
+        {
+            "current": 2.455,
+            "min": 1800.0,
+            "max": 4000.0
+        },
+        {
+            "current": 3.518,
+            "min": 1800.0,
+            "max": 4000.0
+        },
+        {
+            "current": 3.555,
+            "min": 1800.0,
+            "max": 4000.0
+        },
+        {
+            "current": 3.362,
+            "min": 1800.0,
+            "max": 4000.0
+        },
+        {
+            "current": 3.472,
+            "min": 1800.0,
+            "max": 4000.0
+        }
+    ],
+    "disk": {
+        "/": {
+            "total": 438.1026382446289,
+            "used": 374.3807907104492
+        }
+    },
+    "gpu": "NVIDIA RTX A6000",
+    "gpu_count": 4,
+    "gpu_devices": [
+        {
+            "name": "NVIDIA RTX A6000",
+            "memory_total": 51527024640
+        },
+        {
+            "name": "NVIDIA RTX A6000",
+            "memory_total": 51527024640
+        },
+        {
+            "name": "NVIDIA RTX A6000",
+            "memory_total": 51527024640
+        },
+        {
+            "name": "NVIDIA RTX A6000",
+            "memory_total": 51527024640
+        }
+    ],
+    "memory": {
+        "total": 503.5344543457031
+    }
+}

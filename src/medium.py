@@ -481,6 +481,7 @@ class WaveRNNMedium(Medium):
 
     def encode_context(self, raw_text):
         context_tokens = [self.enc.encoder['<|endoftext|>']]
+        breakpoint()
         context_tokens += self.enc.encode(raw_text)
         return context_tokens
 

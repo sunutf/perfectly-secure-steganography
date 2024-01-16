@@ -1,0 +1,158 @@
+diff --git a/.gitignore b/.gitignore
+old mode 100644
+new mode 100755
+diff --git a/README.md b/README.md
+old mode 100644
+new mode 100755
+diff --git a/data/__init__.py b/data/__init__.py
+old mode 100644
+new mode 100755
+diff --git a/data/datasets/image_transformer/__init__.py b/data/datasets/image_transformer/__init__.py
+old mode 100644
+new mode 100755
+diff --git a/data/datasets/image_transformer/transformer_cat.yml b/data/datasets/image_transformer/transformer_cat.yml
+old mode 100644
+new mode 100755
+diff --git a/requirements.txt b/requirements.txt
+old mode 100644
+new mode 100755
+diff --git a/src/__init__.py b/src/__init__.py
+old mode 100644
+new mode 100755
+diff --git a/src/adg.py b/src/adg.py
+old mode 100644
+new mode 100755
+diff --git a/src/arithmetic.py b/src/arithmetic.py
+old mode 100644
+new mode 100755
+index 1e23e6c..ab3fd5c
+--- a/src/arithmetic.py
++++ b/src/arithmetic.py
+@@ -3,8 +3,8 @@ from collections import defaultdict
+ import numpy as np
+ import time
+ import torch as th
+-from src.utils import is_sent_finish, num_same_from_beg, int2bits, bits2int, DRBG, bin_sort, kl2
+-from src.utils import entropy2 as entropy
++from utils import is_sent_finish, num_same_from_beg, int2bits, bits2int, DRBG, bin_sort, kl2
++from utils import entropy2 as entropy
+ 
+ 
+ class ArithmeticEncoder:
+diff --git a/src/image_transformer.py b/src/image_transformer.py
+old mode 100644
+new mode 100755
+diff --git a/src/imec.py b/src/imec.py
+old mode 100644
+new mode 100755
+index 6ae5faa..5f3574e
+--- a/src/imec.py
++++ b/src/imec.py
+@@ -319,6 +319,9 @@ def remove_random_mask(message_bits, input_key, sample_seed_prefix, input_nonce)
+ 
+ 
+ if __name__ == "__main__":
++    from medium import METEORMedium, CIFARMedium, RandomMedium, VariRandomMedium, WaveRNNMedium
++    from utils import bcolors, str2bit, bit2str, get_model
++
+     block_size = 4  # in bits
+     medium = METEORMedium(
+         seed=12342,
+@@ -332,12 +335,12 @@ if __name__ == "__main__":
+     # plaintext_message = "sample text"
+     # use_arithmetic_coding = True
+ 
+-    bit_msg, cinfo = str2bit(plaintext_message, use_arithmetic_coding=False, medium=medium)
++    bit_msg = str2bit(plaintext_message, use_arithmetic_coding=False, medium=medium)
+ 
+     mask_cfg = {"input_key": b'0x01' * 64,
+                 "sample_seed_prefix": b'sample',
+                 "input_nonce": b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'}
+-    msg_bits, rinfo = apply_random_mask(bit_msg, **mask_cfg)
++    msg_bits = apply_random_mask(bit_msg, **mask_cfg)
+ 
+     import math
+ 
+@@ -348,7 +351,7 @@ if __name__ == "__main__":
+                      "resistant systems, practical steganographic systems capable of embedding messages " \
+                      "into realistic communication distributions, like text, do not exist."
+     chosen_context += "\n\n"  # to add a little spacing
+-    encoded_message, enc_stats = encoder.encode(msg_bits=msg_bits, context=chosen_context, verbose=True)
++    encoded_message, enc_stats = encoder.encode(private_message_bit=msg_bits, context=chosen_context, verbose=True)
+ 
+     print("ENCODED MESSAGE:")
+     print(encoded_message)
+@@ -358,8 +361,8 @@ if __name__ == "__main__":
+ 
+     decoded_message, dec_stats = decoder.decode(encoded_msg=encoded_message, context=chosen_context)
+ 
+-    bit_msg, rinfo = remove_random_mask(decoded_message, **rinfo)
+-    decoded_message = bit2str(bit_msg, **cinfo)
++    bit_msg, rinfo = remove_random_mask(decoded_message, **mask_cfg)
++    decoded_message = bit2str(bit_msg, use_arithmetic_coding=False, medium=medium)
+ 
+     print("PLAINTEXT MESSAGE:")
+     print(plaintext_message)
+diff --git a/src/main.py b/src/main.py
+old mode 100644
+new mode 100755
+index bb4a997..ec39ae4
+--- a/src/main.py
++++ b/src/main.py
+@@ -24,7 +24,7 @@ from meteor import METEOREncoder, METEORDecoder
+ from arithmetic import ArithmeticEncoder, ArithmeticDecoder
+ from utils import bcolors, str2bit, bit2str, get_model
+ 
+-
++sys.path.append('/projects/perfectly-secure-steganography/src')
+ def parse_args():
+     parser = argparse.ArgumentParser(description="IMEC Experiment flags")
+     parser.add_argument("--cfg-file", help="path to train experiment config yaml file",
+diff --git a/src/mec.cpp b/src/mec.cpp
+old mode 100644
+new mode 100755
+diff --git a/src/mec.py b/src/mec.py
+old mode 100644
+new mode 100755
+diff --git a/src/medium.py b/src/medium.py
+old mode 100644
+new mode 100755
+index d8e65a8..bea5fe1
+--- a/src/medium.py
++++ b/src/medium.py
+@@ -72,6 +72,7 @@ class METEORMedium(Medium):
+ 
+     def encode_context(self, raw_text):
+         context_tokens = [self.enc.encoder['<|endoftext|>']]
++        breakpoint()
+         context_tokens += self.enc.encode(raw_text)
+         return context_tokens
+ 
+diff --git a/src/meteor.py b/src/meteor.py
+old mode 100644
+new mode 100755
+diff --git a/src/utils.py b/src/utils.py
+old mode 100644
+new mode 100755
+index 04ce889..803b350
+--- a/src/utils.py
++++ b/src/utils.py
+@@ -9,7 +9,7 @@ import torch as th
+ import torch.nn.functional as F
+ import yaml
+ 
+-from src.image_transformer import ImageTransformer
++from image_transformer import ImageTransformer
+ import argparse
+ 
+ def dict2namespace(config):
+@@ -607,4 +607,4 @@ def get_it_model(seed=1234, model_name='cifar', device='cuda'):
+     config = dict2namespace(config)
+     model = ImageTransformer(config.model).to(device)
+     model.load_state_dict(checkpoint)
+-    return None, ITModule(model=model, device=device)
+\ No newline at end of file
++    return None, ITModule(model=model, device=device)
+diff --git a/src/wikitext.py b/src/wikitext.py
+old mode 100644
+new mode 100755

@@ -1,0 +1,123 @@
+wandb_version: 1
+
+block_size:
+  desc: null
+  value: 10
+context_len_bytes:
+  desc: null
+  value: 1024
+device:
+  desc: null
+  value: cpu
+dbg_mode:
+  desc: null
+  value: 0
+dbg_print_context:
+  desc: null
+  value: 1
+dbg_save_audio:
+  desc: null
+  value: 0
+group_name:
+  desc: null
+  value: multi-stega
+mec_mode:
+  desc: null
+  value: dense
+meteor_finish_sent:
+  desc: null
+  value: false
+meteor_precision:
+  desc: null
+  value: 0
+meteor_is_sort:
+  desc: null
+  value: 0
+medium:
+  desc: null
+  value: wavernn
+medium_entropy_loss_threshold:
+  desc: null
+  value: 0.9
+medium_temp:
+  desc: null
+  value: 0.95
+medium_top_k:
+  desc: null
+  value: 0
+imec_belief_entropy_threshold:
+  desc: null
+  value: 1.0e-09
+message_len_bytes:
+  desc: null
+  value: 10
+message_mode:
+  desc: null
+  value: randombits
+method:
+  desc: null
+  value: imec
+model_device:
+  desc: null
+  value: cuda:0
+model_name:
+  desc: null
+  value: gpt2
+name:
+  desc: null
+  value: imec_wavernn
+num_procs:
+  desc: null
+  value: 1
+n_model_procs:
+  desc: null
+  value: 1
+seed:
+  desc: null
+  value: 3875423998
+stop_after_n_trajectories:
+  desc: null
+  value: 100
+use_arithmetic_coding:
+  desc: null
+  value: 0
+use_chunk_header:
+  desc: null
+  value: 0
+verbose:
+  desc: null
+  value: 1
+wandb_project:
+  desc: null
+  value: stegato
+wandb_entity:
+  desc: null
+  value: sunutf
+_wandb:
+  desc: null
+  value:
+    code_path: code/src/main.py
+    python_version: 3.10.13
+    cli_version: 0.16.2
+    framework: torch
+    is_jupyter_run: false
+    is_kaggle_kernel: false
+    start_time: 1705393370.428952
+    t:
+      1:
+      - 1
+      - 53
+      - 55
+      2:
+      - 1
+      - 53
+      - 55
+      3:
+      - 13
+      - 16
+      - 23
+      4: 3.10.13
+      5: 0.16.2
+      8:
+      - 5
+      13: linux-x86_64
